@@ -69,7 +69,7 @@ const Home = () => {
       dispatch(Add_cartt_array_to_localstorag(user.uid));
     
     }
-  },[user]);
+  },[dispatch, user]);
 
 
   if (isLoading && loading) {

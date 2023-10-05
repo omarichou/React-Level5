@@ -45,6 +45,7 @@ const Signup = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        console.log(user.uid)
         // ...
 
         sendEmailVerification(auth.currentUser).then(() => {
@@ -68,7 +69,9 @@ const Signup = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
+        console.log(errorCode)
         const errorMessage = error.message;
+        console.log(errorMessage)
         // ..
       });
   };

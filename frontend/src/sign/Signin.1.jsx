@@ -10,33 +10,18 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
 import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { sendPasswordResetEmail, sendEmailVerification } from "firebase/auth";
-import {  Add_cartt_array_to_localstorag } from "../Redux/CartSlice";
-import {  useDispatch } from "react-redux";
+import { Add_cartt_array_to_localstorag } from "../Redux/CartSlice";
+import { useDispatch } from "react-redux";
+import { style } from "./Signin";
 
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 377,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "6px",
-};
-
-const Signin = () => {
+export const Signin = () => {
   const [affiche_error, setaffiche_error] = useState(false);
   const [errorr, seterrorr] = useState("");
 
@@ -55,7 +40,6 @@ const Signin = () => {
 
   const dispatch = useDispatch();
 
-
   const [emmail, setemmail] = useState("");
   const [passsword, setpasssword] = useState("");
 
@@ -63,16 +47,16 @@ const Signin = () => {
 
   useEffect(() => {
     if (user && user.emailVerified) {
-      dispatch(Add_cartt_array_to_localstorag(user.uid)) 
+      dispatch(Add_cartt_array_to_localstorag(user.uid));
       navigate("/");
     }
   });
 
   useEffect(() => {
     if (!user && !loading) {
-     dispatch(Add_cartt_array_to_localstorag(''))  
+      dispatch(Add_cartt_array_to_localstorag(""));
     }
- });
+  });
 
   if (user && !user.emailVerified) {
     return (
@@ -181,7 +165,7 @@ const Signin = () => {
                 .then((userCredential) => {
                   // Signed in
                   const user = userCredential.user;
-                  console.log(user.uid)
+                  console.log(user.uid);
                   // ...
                   sendEmailVerification(auth.currentUser).then(() => {
                     // Email verification sent!
@@ -195,7 +179,7 @@ const Signin = () => {
                 .catch((error) => {
                   const errorCode = error.code;
                   const errorMessage = error.message;
-                  console.log()(errorMessage)
+                  console.log()(errorMessage);
 
                   setaffiche_error(true);
                   seterrorr(errorCode);
@@ -206,14 +190,14 @@ const Signin = () => {
           </Button>
 
           {/* {errors.title?.type === "required" && <h5>First name is required</h5>}
-          {errors.title?.type === "minLength" && <h5> minLength is 3</h5>}
-          {errors.price?.type === "required" && <h5>Prix is required</h5>}
-          {errors.price?.type === "min" && (
-            <h5>The number you entered must be greater than 3 </h5>
-          )}
-          {errors.price?.type === "max" && (
-            <h5>The number you entered must be less than 100</h5>
-          )} */}
+                {errors.title?.type === "minLength" && <h5> minLength is 3</h5>}
+                {errors.price?.type === "required" && <h5>Prix is required</h5>}
+                {errors.price?.type === "min" && (
+                  <h5>The number you entered must be greater than 3 </h5>
+                )}
+                {errors.price?.type === "max" && (
+                  <h5>The number you entered must be less than 100</h5>
+                )} */}
 
           <Typography variant="body1">
             Don't hava an account{" "}
@@ -299,7 +283,7 @@ const Signin = () => {
                       .catch((error) => {
                         const errorCode = error.code;
                         const errorMessage = error.message;
-                        console.log(`${errorCode} ${errorMessage} `)
+                        console.log(`${errorCode} ${errorMessage} `);
                         // ..
                       });
                   }}
@@ -322,5 +306,3 @@ const Signin = () => {
     );
   }
 };
-
-export default Signin;

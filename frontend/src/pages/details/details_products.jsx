@@ -51,7 +51,7 @@ const DetailsProducts = () => {
     if (user && user.emailVerified) {
       dispatch(Add_cartt_array_to_localstorag(user.uid));
     }
-  }, []);
+  }, [dispatch, user]);
 
   const Products_Quentité = (item_of_data) => {
     let new_array = cartt_array.find((item) => {
